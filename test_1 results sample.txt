@@ -1,0 +1,9 @@
+Solver Status: Optimal
+Objective Value (Total Avg. Violation): 2.7197916000000003e-22
+
+Optimal Parameters:
+w1 = -0.041791
+w2 = -0.083421
+gamma = -14.727684
+
+Separating Line: -0.0418*HR + -0.0834*BP = -14.7277
