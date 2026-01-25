@@ -1,9 +1,0 @@
-Solver Status: Optimal
-Objective Value (Total Avg. Violation): 0.0
-
-Optimal Parameters:
-w_1 = -0.666264
-w_2 = -0.078644
-gamma = -3.999985
-
-Separating Line: -0.6663*x1 + -0.0786*x2 = -4.0000
