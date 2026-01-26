@@ -1,0 +1,158 @@
+================================================================================
+CORRECT LINEAR PROGRAMMING FORMULATION
+================================================================================
+
+Mathematical Formulation:
+Objective: minimize ∑ξᵢ
+Subject to:
+  w·mᵢ + γ ≥ 1 - ξᵢ,  for i = 1,...,m  (Malignant constraints)
+  w·bⱼ + γ ≤ -1 + ξⱼ, for j = 1,...,k  (Benign constraints)
+  ξᵢ ≥ 0
+
+Where:
+  w = [w₁, w₂] - weight vector
+  γ - bias term
+  mᵢ - malignant tumor features (class +1)
+  bⱼ - benign tumor features (class -1)
+  ξᵢ - slack variables for misclassifications
+
+Classification Rule:
+  If w·x + γ ≥ 0 → Malignant
+  If w·x + γ < 0 → Benign
+================================================================================
+BREAST CANCER CLASSIFICATION - FIXED LINEAR PROGRAMMING TEST
+================================================================================
+Loading Breast Cancer Wisconsin Diagnostic Dataset...
+✅ Dataset loaded successfully!
+📊 Features shape: (569, 30)
+🎯 Target distribution:
+   Malignant (M): 212 samples
+   Benign (B): 357 samples
+
+============================================================
+ANALYZING FEATURE SEPARABILITY
+============================================================
+
+🏆 Top 10 Most Discriminative Features:
+----------------------------------------------------------------------------------------------------
+Rank Feature                   Separability M Mean     B Mean     Diff
+----------------------------------------------------------------------------------------------------
+1    concave_points3           1.8416       0.18       0.07       0.11
+2    perimeter3                1.6772       141.37     87.01      54.36
+3    concave_points1           1.6441       0.09       0.03       0.06
+4    radius3                   1.6431       21.13      13.38      7.76
+5    perimeter1                1.5012       115.37     78.08      37.29
+6    radius1                   1.4504       17.46      12.15      5.32
+7    area3                     1.3927       1422.29    558.90     863.39
+8    concavity1                1.3233       0.16       0.05       0.11
+9    area1                     1.3164       978.38     462.79     515.59
+10   concavity3                1.2393       0.45       0.17       0.28
+
+================================================================================
+RUNNING FIXED LINEAR PROGRAMMING CLASSIFICATION
+================================================================================
+Testing 4 feature pairs...
+
+🔬 TEST 1: concave_points3 vs perimeter3
+------------------------------------------------------------
+
+📋 Preparing data for: concave_points3 vs perimeter3
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   concave_points3 - Malignant: 0.18 ± 0.05
+   concave_points3 - Benign: 0.07 ± 0.04
+   perimeter3 - Malignant: 141.37 ± 29.39
+   perimeter3 - Benign: 87.01 ± 13.51
+   🧮 Solving Linear Programming problem...
+   ✅ LP solved successfully!
+   📈 Objective value (total slack): 77.140342
+   🔧 Parameters: w1 = 22.465501, w2 = 0.083059, gamma = -12.075629
+   ✅ Classification Accuracy: 93.85%
+
+🔬 TEST 2: concave_points1 vs radius1
+------------------------------------------------------------
+
+📋 Preparing data for: concave_points1 vs radius1
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   concave_points1 - Malignant: 0.09 ± 0.03
+   concave_points1 - Benign: 0.03 ± 0.02
+   radius1 - Malignant: 17.46 ± 3.20
+   radius1 - Benign: 12.15 ± 1.78
+   🧮 Solving Linear Programming problem...
+   ✅ LP solved successfully!
+   📈 Objective value (total slack): 107.266239
+   🔧 Parameters: w1 = 48.090011, w2 = 0.353904, gamma = -7.672226
+   ✅ Classification Accuracy: 91.74%
+
+🔬 TEST 3: perimeter1 vs area1
+------------------------------------------------------------
+
+📋 Preparing data for: perimeter1 vs area1
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   perimeter1 - Malignant: 115.37 ± 21.80
+   perimeter1 - Benign: 78.08 ± 11.79
+   area1 - Malignant: 978.38 ± 367.07
+   area1 - Benign: 462.79 ± 134.10
+   🧮 Solving Linear Programming problem...
+   ✅ LP solved successfully!
+   📈 Objective value (total slack): 147.995657
+   🔧 Parameters: w1 = 0.305269, w2 = -0.014623, gamma = -19.405910
+   ✅ Classification Accuracy: 89.81%
+
+🔬 TEST 4: texture1 vs smoothness1
+------------------------------------------------------------
+
+📋 Preparing data for: texture1 vs smoothness1
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   texture1 - Malignant: 21.60 ± 3.77
+   texture1 - Benign: 17.91 ± 3.99
+   smoothness1 - Malignant: 0.10 ± 0.01
+   smoothness1 - Benign: 0.09 ± 0.01
+   🧮 Solving Linear Programming problem...
+   ✅ LP solved successfully!
+   📈 Objective value (total slack): 311.911395
+   🔧 Parameters: w1 = 0.222336, w2 = 55.976910, gamma = -10.285126
+   ✅ Classification Accuracy: 76.63%
+
+================================================================================
+FIXED LINEAR PROGRAMMING CLASSIFICATION SUMMARY
+================================================================================
+
+Summary of FIXED LP Classification Results:
+--------------------------------------------------------------------------------
+Features: concave_points3 vs perimeter3
+  Accuracy: 93.8%
+  Total Slack: 77.1403
+  Confusion Matrix: 195/339/18/17
+--------------------------------------------------------------------------------
+Features: concave_points1 vs radius1
+  Accuracy: 91.7%
+  Total Slack: 107.2662
+  Confusion Matrix: 185/337/20/27
+--------------------------------------------------------------------------------
+Features: perimeter1 vs area1
+  Accuracy: 89.8%
+  Total Slack: 147.9957
+  Confusion Matrix: 175/336/21/37
+--------------------------------------------------------------------------------
+Features: texture1 vs smoothness1
+  Accuracy: 76.6%
+  Total Slack: 311.9114
+  Confusion Matrix: 127/309/48/85
+--------------------------------------------------------------------------------
+
+🏆 BEST PERFORMING FEATURE PAIR:
+   concave_points3 vs perimeter3
+   Accuracy: 93.85%
+   Total Slack: 77.140342
+
+✅ FIXED Linear Programming classification test completed!
+📁 Check the 'images' folder for generated plots (files starting with 'LP_FIXED_').
+📊 Tested 4 feature pairs successfully.
