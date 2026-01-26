@@ -1,0 +1,289 @@
+
+================================================================================
+QUADRATIC PROGRAMMING (SVM) FORMULATION
+================================================================================
+
+Mathematical Formulation (L2-norm Soft Margin SVM):
+Objective: minimize ½‖w‖² + C∑ξᵢ²
+Subject to:
+  yᵢ(w·xᵢ + γ) ≥ 1 - ξᵢ,  for i = 1,...,n
+  ξᵢ ≥ 0
+
+Where:
+  w = [w₁, w₂] - weight vector
+  γ - bias term
+  xᵢ - feature vectors
+  yᵢ - labels (+1 for Malignant, -1 for Benign)
+  ξᵢ - slack variables for misclassifications
+  C - regularization parameter
+
+Classification Rule:
+  If w·x + γ ≥ 0 → Malignant
+  If w·x + γ < 0 → Benign
+
+Margin Calculation:
+  Margin = 2 / ‖w‖
+
+Regularization Parameter C:
+  Small C: Larger margin, more misclassifications allowed
+  Large C: Smaller margin, fewer misclassifications
+  C → ∞: Hard margin SVM (no misclassifications allowed)
+================================================================================
+BREAST CANCER CLASSIFICATION - QUADRATIC PROGRAMMING (SVM) TEST
+================================================================================
+Loading Breast Cancer Wisconsin Diagnostic Dataset...
+✅ Dataset loaded successfully!
+📊 Features shape: (569, 30)
+🎯 Target distribution:
+   Malignant (M): 212 samples
+   Benign (B): 357 samples
+
+============================================================
+ANALYZING FEATURE SEPARABILITY
+============================================================
+
+🏆 Top 10 Most Discriminative Features:
+----------------------------------------------------------------------------------------------------
+Rank Feature                   Separability M Mean     B Mean     Diff
+----------------------------------------------------------------------------------------------------
+1    concave_points3           1.8416       0.18       0.07       0.11
+2    perimeter3                1.6772       141.37     87.01      54.36
+3    concave_points1           1.6441       0.09       0.03       0.06
+4    radius3                   1.6431       21.13      13.38      7.76
+5    perimeter1                1.5012       115.37     78.08      37.29
+6    radius1                   1.4504       17.46      12.15      5.32
+7    area3                     1.3927       1422.29    558.90     863.39
+8    concavity1                1.3233       0.16       0.05       0.11
+9    area1                     1.3164       978.38     462.79     515.59
+10   concavity3                1.2393       0.45       0.17       0.28
+
+================================================================================
+RUNNING QUADRATIC PROGRAMMING (SVM) CLASSIFICATION
+================================================================================
+Testing 4 feature pairs with C values: [0.1, 1.0, 10.0]
+
+🔬 TEST 1: concave_points3 vs perimeter3
+------------------------------------------------------------
+
+📋 Preparing data for: concave_points3 vs perimeter3
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   concave_points3 - Malignant: 0.18 ± 0.05
+   concave_points3 - Benign: 0.07 ± 0.04
+   perimeter3 - Malignant: 141.37 ± 29.39
+   perimeter3 - Benign: 87.01 ± 13.51
+   Testing C = 0.1
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 0.1
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 12.986120
+   🔧 Parameters: w1 = 0.670126, w2 = 0.052070, gamma = -5.825193
+   📏 Margin width: 2.975545
+   📊 ||w||: 0.672146
+      ✅ Accuracy: 91.92%, Margin: 2.9755
+   Testing C = 1.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 1.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 117.599593
+   🔧 Parameters: w1 = 4.107137, w2 = 0.045769, gamma = -5.571443
+   📏 Margin width: 0.486927
+   📊 ||w||: 4.107392
+      ✅ Accuracy: 92.62%, Margin: 0.4869
+   Testing C = 10.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 10.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 1007.936866
+   🔧 Parameters: w1 = 9.352741, w2 = 0.040530, gamma = -5.657967
+   📏 Margin width: 0.213839
+   📊 ||w||: 9.352829
+      ✅ Accuracy: 93.85%, Margin: 0.2138
+
+🔬 TEST 2: concave_points1 vs radius1
+------------------------------------------------------------
+
+📋 Preparing data for: concave_points1 vs radius1
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   concave_points1 - Malignant: 0.09 ± 0.03
+   concave_points1 - Benign: 0.03 ± 0.02
+   radius1 - Malignant: 17.46 ± 3.20
+   radius1 - Benign: 12.15 ± 1.78
+   Testing C = 0.1
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 0.1
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 20.918678
+   🔧 Parameters: w1 = 0.702515, w2 = 0.320505, gamma = -4.792613
+   📏 Margin width: 2.590093
+   📊 ||w||: 0.772173
+      ✅ Accuracy: 88.58%, Margin: 2.5901
+   Testing C = 1.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 1.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 191.823604
+   🔧 Parameters: w1 = 5.370050, w2 = 0.279086, gamma = -4.422184
+   📏 Margin width: 0.371934
+   📊 ||w||: 5.377297
+      ✅ Accuracy: 89.81%, Margin: 0.3719
+   Testing C = 10.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 10.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 1511.427498
+   🔧 Parameters: w1 = 17.277082, w2 = 0.208251, gamma = -3.972116
+   📏 Margin width: 0.115752
+   📊 ||w||: 17.278337
+      ✅ Accuracy: 91.04%, Margin: 0.1158
+
+🔬 TEST 3: perimeter1 vs area1
+------------------------------------------------------------
+
+📋 Preparing data for: perimeter1 vs area1
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   perimeter1 - Malignant: 115.37 ± 21.80
+   perimeter1 - Benign: 78.08 ± 11.79
+   area1 - Malignant: 978.38 ± 367.07
+   area1 - Benign: 462.79 ± 134.10
+   Testing C = 0.1
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 0.1
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 18.387435
+   🔧 Parameters: w1 = 0.140084, w2 = -0.006471, gamma = -9.055879
+   📏 Margin width: 14.261963
+   📊 ||w||: 0.140233
+      ✅ Accuracy: 88.93%, Margin: 14.2620
+   Testing C = 1.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 1.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 183.785645
+   🔧 Parameters: w1 = 0.140415, w2 = -0.006491, gamma = -9.073492
+   📏 Margin width: 14.228314
+   📊 ||w||: 0.140565
+      ✅ Accuracy: 88.93%, Margin: 14.2283
+   Testing C = 10.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 10.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 1837.767503
+   🔧 Parameters: w1 = 0.140448, w2 = -0.006494, gamma = -9.075265
+   📏 Margin width: 14.224934
+   📊 ||w||: 0.140598
+      ✅ Accuracy: 88.93%, Margin: 14.2249
+
+🔬 TEST 4: texture1 vs smoothness1
+------------------------------------------------------------
+
+📋 Preparing data for: texture1 vs smoothness1
+   Malignant samples: 212
+   Benign samples: 357
+   Total samples: 569
+   texture1 - Malignant: 21.60 ± 3.77
+   texture1 - Benign: 17.91 ± 3.99
+   smoothness1 - Malignant: 0.10 ± 0.01
+   smoothness1 - Benign: 0.09 ± 0.01
+   Testing C = 0.1
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 0.1
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 43.834834
+   🔧 Parameters: w1 = 0.095188, w2 = 0.557598, gamma = -2.144155
+   📏 Margin width: 3.535667
+   📊 ||w||: 0.565664
+      ✅ Accuracy: 70.47%, Margin: 3.5357
+   Testing C = 1.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 1.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 426.608960
+   🔧 Parameters: w1 = 0.095651, w2 = 4.660799, gamma = -2.548384
+   📏 Margin width: 0.429021
+   📊 ||w||: 4.661780
+      ✅ Accuracy: 72.06%, Margin: 0.4290
+   Testing C = 10.0
+   🧮 Solving Quadratic Programming (SVM) problem...
+   Regularization parameter C: 10.0
+   ✅ QP (SVM) solved successfully using SCS!
+   📈 Objective value: 3890.300365
+   🔧 Parameters: w1 = 0.099621, w2 = 18.090604, gamma = -3.925410
+   📏 Margin width: 0.110553
+   📊 ||w||: 18.090879
+      ✅ Accuracy: 74.69%, Margin: 0.1106
+
+================================================================================
+QUADRATIC PROGRAMMING (SVM) CLASSIFICATION SUMMARY
+================================================================================
+
+📊 Feature Pair: concave_points3 vs perimeter3
+--------------------------------------------------------------------------------
+C        Accuracy   Margin       Objective    TP/TN/FP/FN
+--------------------------------------------------------------------------------
+0.1      91.9     % 2.9755      12.9861     183/340/17/29
+1.0      92.6     % 0.4869      117.5996    191/336/21/21
+10.0     93.8     % 0.2138      1007.9369   197/337/20/15
+
+📊 Feature Pair: concave_points1 vs radius1
+--------------------------------------------------------------------------------
+C        Accuracy   Margin       Objective    TP/TN/FP/FN
+--------------------------------------------------------------------------------
+0.1      88.6     % 2.5901      20.9187     167/337/20/45
+1.0      89.8     % 0.3719      191.8236    168/343/14/44
+10.0     91.0     % 0.1158      1511.4275   179/339/18/33
+
+📊 Feature Pair: perimeter1 vs area1
+--------------------------------------------------------------------------------
+C        Accuracy   Margin       Objective    TP/TN/FP/FN
+--------------------------------------------------------------------------------
+0.1      88.9     % 14.2620     18.3874     175/331/26/37
+1.0      88.9     % 14.2283     183.7856    175/331/26/37
+10.0     88.9     % 14.2249     1837.7675   175/331/26/37
+
+📊 Feature Pair: texture1 vs smoothness1
+--------------------------------------------------------------------------------
+C        Accuracy   Margin       Objective    TP/TN/FP/FN
+--------------------------------------------------------------------------------
+0.1      70.5     % 3.5357      43.8348     89/312/45/123
+1.0      72.1     % 0.4290      426.6090    95/315/42/117
+10.0     74.7     % 0.1106      3890.3004   116/309/48/96
+
+🏆 BEST OVERALL PERFORMANCE:
+   Feature Pair: concave_points3 vs perimeter3
+   Regularization C: 10.0
+   Accuracy: 93.85%
+   Margin: 0.213839
+   Objective Value: 1007.936866
+
+📈 Effect of Regularization Parameter C:
+------------------------------------------------------------
+
+concave_points3 vs perimeter3:
+  C=0.1: Accuracy=91.9%, Margin=2.9755, ||w||=0.6721
+  C=1.0: Accuracy=92.6%, Margin=0.4869, ||w||=4.1074
+  C=10.0: Accuracy=93.8%, Margin=0.2138, ||w||=9.3528
+
+concave_points1 vs radius1:
+  C=0.1: Accuracy=88.6%, Margin=2.5901, ||w||=0.7722
+  C=1.0: Accuracy=89.8%, Margin=0.3719, ||w||=5.3773
+  C=10.0: Accuracy=91.0%, Margin=0.1158, ||w||=17.2783
+
+perimeter1 vs area1:
+  C=0.1: Accuracy=88.9%, Margin=14.2620, ||w||=0.1402
+  C=1.0: Accuracy=88.9%, Margin=14.2283, ||w||=0.1406
+  C=10.0: Accuracy=88.9%, Margin=14.2249, ||w||=0.1406
+
+texture1 vs smoothness1:
+  C=0.1: Accuracy=70.5%, Margin=3.5357, ||w||=0.5657
+  C=1.0: Accuracy=72.1%, Margin=0.4290, ||w||=4.6618
+  C=10.0: Accuracy=74.7%, Margin=0.1106, ||w||=18.0909
+
+✅ Quadratic Programming (SVM) classification test completed!
+📁 Check the 'images' folder for generated plots (files starting with 'SVM_').
+📊 Tested 4 feature pairs successfully.
